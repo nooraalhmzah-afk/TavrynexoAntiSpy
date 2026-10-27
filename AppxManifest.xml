@@ -3,7 +3,7 @@
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
          xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+         xmlns:mp="http://schemas.microsoft.com/2014/phone/manifest"
          IgnorableNamespaces="uap rescap desktop mp">
   <Identity Name="RadwanAlmsora.TavrynexoAntiSpy" 
             Publisher="CN=DB86E487-92CC-4FB9-BDBC-F161416E3A4E" 
@@ -18,6 +18,9 @@
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />
   </Dependencies>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>

@@ -25,20 +25,34 @@ jobs:
     - name: Package MSIX and APPX for Microsoft Store
       shell: pwsh
       run: |
-        $pkgDir = "./appx_package"
-        New-Item -ItemType Directory -Force -Path $pkgDir
-        Copy-Item -Path "./publish/TavrynexoAntiSpy.exe" -Destination "$pkgDir/TavrynexoAntiSpy.exe"
-        Copy-Item -Path "./AppxManifest.xml" -Destination "$pkgDir/AppxManifest.xml"
-        Copy-Item -Path "./Assets" -Destination "$pkgDir/Assets" -Recurse
+         = "./appx_package"
+        if (Test-Path ) { Remove-Item -Path  -Recurse -Force }
+        New-Item -ItemType Directory -Force -Path 
+        New-Item -ItemType Directory -Force -Path "/Assets"
 
-        $makeAppx = (Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\10\bin" -Filter "makeappx.exe" -Recurse | Where-Object { $_.FullName -like "*x64*" } | Select-Object -First 1).FullName
-        if (-not $makeAppx) { $makeAppx = "makeappx.exe" }
+        Copy-Item -Path "./publish/TavrynexoAntiSpy.exe" -Destination "/TavrynexoAntiSpy.exe"
+        Copy-Item -Path "./AppxManifest.xml" -Destination "/AppxManifest.xml"
+        Copy-Item -Path "./Assets/*" -Destination "/Assets" -Force
+
+        # Locate makeappx.exe and makepri.exe from Windows SDK
+         = (Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\10\bin" -Filter "makeappx.exe" -Recurse | Where-Object { clear.FullName -like "*x64*" } | Select-Object -First 1).DirectoryName
+         = Join-Path  "makeappx.exe"
+         = Join-Path  "makepri.exe"
+        Write-Host "Using MakeAppx: "
+        Write-Host "Using MakePri: "
+
+        # Generate resources.pri required by Microsoft Store Partner Center
+        if (Test-Path ) {
+            &  createconfig /cf "/priconfig.xml" /dq en-US /pv 10.0.0 /o
+            &  new /pr "" /cf "/priconfig.xml" /of "/resources.pri" /o
+            Remove-Item -Path "/priconfig.xml" -Force -ErrorAction SilentlyContinue
+        }
 
         New-Item -ItemType Directory -Force -Path "./store_packages"
-        & $makeAppx pack /d $pkgDir /p ./store_packages/TavrynexoAntiSpy.msix /nv
-        & $makeAppx pack /d $pkgDir /p ./store_packages/TavrynexoAntiSpy.appx /nv
+        &  pack /d  /p ./store_packages/TavrynexoAntiSpy.msix /o
+        &  pack /d  /p ./store_packages/TavrynexoAntiSpy.appx /o
 
-    - name: Upload Standalone EXE
+    - name: Upload Standalone EXE Artifact
       uses: actions/upload-artifact@v4
       with:
         name: TavrynexoAntiSpy-Standalone-EXE
