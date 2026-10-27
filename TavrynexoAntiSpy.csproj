@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>TavrynexoAntiSpy</RootNamespace>
+    <AssemblyName>TavrynexoAntiSpy</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Tavrynexo Security</Authors>
+    <Company>Tavrynexo</Company>
+    <Product>Tavrynexo AntiSpy</Product>
+    <Description>Enterprise-grade Windows Privacy, Security &amp; Anti-Telemetry Suite (WPF / .NET 8 / SQLite)</Description>
+  </PropertyGroup>
+
+  <!-- Dependencies for SQLite, Windows Services, and WMI Security Queries -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

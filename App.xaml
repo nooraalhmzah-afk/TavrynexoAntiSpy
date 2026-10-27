@@ -1,0 +1,29 @@
+<Application x:Class="TavrynexoAntiSpy.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <!-- Commercial Clean White & Calm Gray Palette with Trust Blue Accent -->
+        <SolidColorBrush x:Key="BgWindow" Color="#F8FAFC" />
+        <SolidColorBrush x:Key="BgSidebar" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="BgCard" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="BgCardSubtle" Color="#F1F5F9" />
+        <SolidColorBrush x:Key="BorderLight" Color="#E2E8F0" />
+        <SolidColorBrush x:Key="BorderMedium" Color="#CBD5E1" />
+        
+        <!-- Corporate Trust Blue -->
+        <SolidColorBrush x:Key="TrustBlue" Color="#2563EB" />
+        <SolidColorBrush x:Key="TrustBlueDark" Color="#1D4ED8" />
+        <SolidColorBrush x:Key="TrustBlueLight" Color="#EFF6FF" />
+        <SolidColorBrush x:Key="TrustBlueBorder" Color="#BFDBFE" />
+        
+        <SolidColorBrush x:Key="SuccessGreen" Color="#059669" />
+        <SolidColorBrush x:Key="SuccessGreenBg" Color="#ECFDF5" />
+        <SolidColorBrush x:Key="WarningAmber" Color="#D97706" />
+        <SolidColorBrush x:Key="DangerRed" Color="#DC2626" />
+        
+        <SolidColorBrush x:Key="TextHeader" Color="#0F172A" />
+        <SolidColorBrush x:Key="TextBody" Color="#334155" />
+        <SolidColorBrush x:Key="TextMuted" Color="#64748B" />
+    </Application.Resources>
+</Application>
