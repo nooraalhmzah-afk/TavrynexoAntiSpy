@@ -24,33 +24,7 @@ jobs:
 
     - name: Package MSIX and APPX for Microsoft Store
       shell: pwsh
-      run: |
-         = "./appx_package"
-        if (Test-Path ) { Remove-Item -Path  -Recurse -Force }
-        New-Item -ItemType Directory -Force -Path 
-        New-Item -ItemType Directory -Force -Path "/Assets"
-
-        Copy-Item -Path "./publish/TavrynexoAntiSpy.exe" -Destination "/TavrynexoAntiSpy.exe"
-        Copy-Item -Path "./AppxManifest.xml" -Destination "/AppxManifest.xml"
-        Copy-Item -Path "./Assets/*" -Destination "/Assets" -Force
-
-        # Locate makeappx.exe and makepri.exe from Windows SDK
-         = (Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\10\bin" -Filter "makeappx.exe" -Recurse | Where-Object { clear.FullName -like "*x64*" } | Select-Object -First 1).DirectoryName
-         = Join-Path  "makeappx.exe"
-         = Join-Path  "makepri.exe"
-        Write-Host "Using MakeAppx: "
-        Write-Host "Using MakePri: "
-
-        # Generate resources.pri required by Microsoft Store Partner Center
-        if (Test-Path ) {
-            &  createconfig /cf "/priconfig.xml" /dq en-US /pv 10.0.0 /o
-            &  new /pr "" /cf "/priconfig.xml" /of "/resources.pri" /o
-            Remove-Item -Path "/priconfig.xml" -Force -ErrorAction SilentlyContinue
-        }
-
-        New-Item -ItemType Directory -Force -Path "./store_packages"
-        &  pack /d  /p ./store_packages/TavrynexoAntiSpy.msix /o
-        &  pack /d  /p ./store_packages/TavrynexoAntiSpy.appx /o
+      run: pwsh ./package_store.ps1
 
     - name: Upload Standalone EXE Artifact
       uses: actions/upload-artifact@v4
