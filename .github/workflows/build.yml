@@ -1,4 +1,4 @@
-name: Build Tavrynexo AntiSpy EXE
+name: Build Tavrynexo AntiSpy EXE and Microsoft Store Packages
 
 on:
   push:
@@ -18,12 +18,34 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Compile and Publish Standalone EXE
+    - name: Build and Publish Standalone Single-File EXE with Icon
       run: |
         dotnet publish TavrynexoAntiSpy.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish
 
-    - name: Upload TavrynexoAntiSpy.exe
+    - name: Package MSIX and APPX for Microsoft Store
+      shell: pwsh
+      run: |
+        $pkgDir = "./appx_package"
+        New-Item -ItemType Directory -Force -Path $pkgDir
+        Copy-Item -Path "./publish/TavrynexoAntiSpy.exe" -Destination "$pkgDir/TavrynexoAntiSpy.exe"
+        Copy-Item -Path "./AppxManifest.xml" -Destination "$pkgDir/AppxManifest.xml"
+        Copy-Item -Path "./Assets" -Destination "$pkgDir/Assets" -Recurse
+
+        $makeAppx = (Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\10\bin" -Filter "makeappx.exe" -Recurse | Where-Object { $_.FullName -like "*x64*" } | Select-Object -First 1).FullName
+        if (-not $makeAppx) { $makeAppx = "makeappx.exe" }
+
+        New-Item -ItemType Directory -Force -Path "./store_packages"
+        & $makeAppx pack /d $pkgDir /p ./store_packages/TavrynexoAntiSpy.msix /nv
+        & $makeAppx pack /d $pkgDir /p ./store_packages/TavrynexoAntiSpy.appx /nv
+
+    - name: Upload Standalone EXE
       uses: actions/upload-artifact@v4
       with:
-        name: TavrynexoAntiSpy-Executable
+        name: TavrynexoAntiSpy-Standalone-EXE
         path: ./publish/TavrynexoAntiSpy.exe
+
+    - name: Upload Microsoft Store Packages (MSIX & APPX)
+      uses: actions/upload-artifact@v4
+      with:
+        name: TavrynexoAntiSpy-Microsoft-Store-Packages
+        path: ./store_packages/*

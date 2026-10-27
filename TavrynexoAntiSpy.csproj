@@ -13,7 +13,12 @@
     <Company>Tavrynexo</Company>
     <Product>Tavrynexo AntiSpy</Product>
     <Description>Enterprise-grade Windows Privacy, Security &amp; Anti-Telemetry Suite (WPF / .NET 8 / SQLite)</Description>
+      <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="app.ico" />
+  </ItemGroup>
 
   <!-- Dependencies for SQLite, Windows Services, and WMI Security Queries -->
   <ItemGroup>
