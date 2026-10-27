@@ -1,0 +1,29 @@
+name: Build Tavrynexo AntiSpy EXE
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8.0 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Compile and Publish Standalone EXE
+      run: |
+        dotnet publish TavrynexoAntiSpy.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish
+
+    - name: Upload TavrynexoAntiSpy.exe
+      uses: actions/upload-artifact@v4
+      with:
+        name: TavrynexoAntiSpy-Executable
+        path: ./publish/TavrynexoAntiSpy.exe
