@@ -21,17 +21,14 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
                         <Border x:Name="SwitchTrack" Width="48" Height="26" CornerRadius="13" Background="#CBD5E1" BorderBrush="#94A3B8" BorderThickness="1">
-                            <Ellipse x:Name="SwitchThumb" Width="18" Height="18" Fill="#FFFFFF" HorizontalAlignment="Left" Margin="4,0,0,0">
-                                <Ellipse.RenderTransform>
-                                    <TranslateTransform x:Name="ThumbTransform" X="0"/>
-                                </Ellipse.RenderTransform>
-                            </Ellipse>
+                            <Ellipse x:Name="SwitchThumb" Width="18" Height="18" Fill="#FFFFFF" HorizontalAlignment="Left" Margin="4,0,0,0" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="SwitchTrack" Property="Background" Value="#2563EB" />
                                 <Setter TargetName="SwitchTrack" Property="BorderBrush" Value="#1D4ED8" />
-                                <Setter TargetName="ThumbTransform" Property="X" Value="22" />
+                                <Setter TargetName="SwitchThumb" Property="HorizontalAlignment" Value="Right" />
+                                <Setter TargetName="SwitchThumb" Property="Margin" Value="0,0,4,0" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
